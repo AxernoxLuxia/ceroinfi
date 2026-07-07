@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(\\(Get-Content \"D:\\\\Coding\\\\ceroinfi\\\\ceroinfi-blog.html\" -Raw\\).Length)"
+    ]
+  }
+}
