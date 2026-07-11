@@ -14,28 +14,28 @@ const cards: MethodCard[] = [
     title: 'Diagnose',
     description:
       'Stakeholder interviews, surveys, and data review — attrition, hiring, engagement — to pinpoint root causes rather than symptoms.',
-    accent: '#2DD4BF',
+    accent: '#00AFD7',
   },
   {
     step: '02',
     title: 'Design',
     description:
       'Custom curriculum, frameworks, and toolkits built around your roles, culture, and language. Never an off-the-shelf deck.',
-    accent: '#7C5CFF',
+    accent: '#00AFD7',
   },
   {
     step: '03',
     title: 'Deliver',
     description:
       'Facilitator-led workshops, 1:1 coaching, cohort mentorship, and manager toolkits, delivered in-person or virtually.',
-    accent: '#A3E635',
+    accent: '#00AFD7',
   },
   {
     step: '04',
     title: 'Measure',
     description:
       'Pre/post assessments, manager feedback loops, and lifecycle metrics — time-to-productivity, 90-day retention, eNPS — tied back to business outcomes.',
-    accent: '#F59E0B',
+    accent: '#00AFD7',
   },
 ]
 
@@ -62,7 +62,7 @@ function MethodCardItem({ card, index }: { card: MethodCard; index: number }) {
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.55, delay: index * 0.05 }}
       style={reducedMotion ? undefined : { y: cardY }}
-      className="relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-8 shadow-[0_0_60px_rgba(255,255,255,0.03)] backdrop-blur-sm sm:p-10"
+      className="relative overflow-hidden rounded-[1.75rem] border border-white/12 bg-surface p-8 shadow-[0_10px_40px_rgba(37,42,52,0.08)] backdrop-blur-sm sm:p-10"
     >
       <motion.span
         aria-hidden="true"
@@ -76,12 +76,12 @@ function MethodCardItem({ card, index }: { card: MethodCard; index: number }) {
       </motion.span>
 
       <div className="relative flex items-start gap-5">
-        <span className="text-sm font-bold tracking-[0.1em]" style={{ color: card.accent }}>
+        <span className="text-sm font-bold tracking-[0.1em] text-accent-safe">
           {card.step}
         </span>
         <div>
           <h3 className="text-2xl font-semibold text-white sm:text-3xl">{card.title}</h3>
-          <p className="mt-3 max-w-xl text-base leading-7 text-white/70">{card.description}</p>
+          <p className="mt-3 max-w-xl text-base leading-7 text-body">{card.description}</p>
         </div>
       </div>
       <div className="relative mt-6 h-1 w-16 overflow-hidden rounded-full bg-white/10">
@@ -99,17 +99,14 @@ function MethodCardItem({ card, index }: { card: MethodCard; index: number }) {
 
 function Method() {
   return (
-    <section id="method" className="min-h-screen bg-black px-6 py-24 sm:px-8 lg:px-12">
+    <section id="method" className="min-h-screen px-6 py-24 sm:px-8 lg:px-12">
       <div className="mx-auto flex max-w-6xl flex-col gap-12 lg:flex-row lg:gap-16">
         <div className="lg:w-[40%]">
           <div className="sticky top-24">
-            <p className="mb-4 text-sm font-medium uppercase tracking-[0.35em] text-white/55">
-              How We Can Help
-            </p>
-            <h2 className="max-w-md text-4xl font-semibold leading-tight tracking-[-0.03em] text-white sm:text-5xl lg:text-6xl">
+            <h1 className="max-w-md text-4xl font-semibold leading-tight tracking-[-0.03em] text-white text-balance sm:text-5xl lg:text-6xl">
               The CeroInfi 4D Method
-            </h2>
-            <p className="mt-6 max-w-lg text-lg leading-8 text-white/70">
+            </h1>
+            <p className="mt-6 max-w-lg text-lg leading-8 text-body">
               A structured, human-centered approach that helps organizations move from insight to
               action with clarity and purpose. This document is a menu, not a fixed package —
               every phase can be engaged as a standalone workshop, a short diagnostic sprint, or a

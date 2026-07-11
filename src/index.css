@@ -1,17 +1,37 @@
 @import "tailwindcss";
 
-/* Apple-Inspired Global Resets */
+/*
+  CeroInfi brand palette — light mode.
+  --color-black / --color-white are overridden to CANVAS / INK (not
+  literal black/white) so every existing bg-black / text-white /
+  border-white/NN utility in the app resolves to the light-mode pair
+  without a mechanical rename. `bg-surface` is the light card fill;
+  `text-accent-safe` is the darker cyan for legible text/links, since
+  raw accent cyan doesn't meet body-text contrast on a light canvas.
+*/
+@theme {
+  --color-black: #F7F9FB;        /* canvas — page background */
+  --color-white: #252A34;        /* ink — headings / full-strength text */
+  --color-surface: #EAF5F8;      /* light cyan-tinted card / panel fill */
+  --color-accent: #00AFD7;       /* brand cyan — decorative fills only */
+  --color-accent-safe: #006B84;  /* text-safe cyan — legible text/links (AA on canvas + surface) */
+
+  /* Solid muted text tokens — replace opacity-based greys, which failed WCAG AA
+     on the light canvas. Both clear 4.5:1 over canvas, the card surface, and the
+     animated background tint. Hierarchy comes from size/weight, not lightness. */
+  --color-body: #3E4652;         /* body copy */
+  --color-subtle: #4B5563;       /* labels, meta, secondary */
+}
+
 html, body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
-  
-  /* Deep black background with stark white text */
-  background-color: #000000; 
-  color: #f5f5f7; 
-  
-  /* Modern typography scaling */
+
+  background-color: #F7F9FB;
+  color: #252A34;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -23,11 +43,115 @@ html, body {
   flex-direction: column;
 }
 
+/* Visible keyboard focus for every interactive element (WCAG 2.4.7).
+   One rule so links, buttons, and fields share a consistent, on-brand ring
+   without per-component focus styles. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--color-accent-safe);
+  outline-offset: 2px;
+}
+
+/* Ambient animated background — soft cyan blobs drifting behind all content.
+   Sits at z-0; page chrome (header/main/footer) is lifted to z-10 in Layout so
+   it stacks above, while transparent page sections let the blobs show through. */
+.cero-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background-color: #F7F9FB;
+}
+.cero-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(70px);
+  will-change: transform;
+}
+.cero-blob--1 {
+  width: 48vw;
+  height: 48vw;
+  top: -10vw;
+  left: -6vw;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 175, 215, 0.55) 0%,
+    rgba(0, 175, 215, 0.28) 38%,
+    transparent 72%
+  );
+  animation: cero-drift-1 28s ease-in-out infinite;
+}
+.cero-blob--2 {
+  width: 54vw;
+  height: 54vw;
+  bottom: -16vw;
+  right: -8vw;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 175, 215, 0.48) 0%,
+    rgba(0, 175, 215, 0.24) 40%,
+    transparent 70%
+  );
+  animation: cero-drift-2 34s ease-in-out infinite;
+}
+.cero-blob--3 {
+  width: 42vw;
+  height: 42vw;
+  top: 28%;
+  left: 60%;
+  background: radial-gradient(
+    circle at center,
+    rgba(127, 219, 239, 0.5) 0%,
+    rgba(127, 219, 239, 0.24) 42%,
+    transparent 74%
+  );
+  animation: cero-drift-3 31s ease-in-out infinite;
+}
+@keyframes cero-drift-1 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(7vw, 5vw, 0) scale(1.12);
+  }
+}
+@keyframes cero-drift-2 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-6vw, -4vw, 0) scale(1.15);
+  }
+}
+@keyframes cero-drift-3 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(-5vw, 4vw, 0) scale(1.1);
+  }
+  66% {
+    transform: translate3d(4vw, -3vw, 0) scale(0.95);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cero-blob {
+    animation: none !important;
+  }
+}
+
 /* Insights article typography */
 .article-content p {
   font-size: 1.0625rem;
   line-height: 1.75;
-  color: #d6dcec;
+  color: #3E4652;
   margin: 1rem 0;
 }
 .article-content h2 {
@@ -37,7 +161,7 @@ html, body {
   margin: 2.6rem 0 0.75rem;
   padding-left: 1rem;
   position: relative;
-  color: #fff;
+  color: #252A34;
 }
 .article-content h2::before {
   content: '';
@@ -47,18 +171,18 @@ html, body {
   bottom: 0.375rem;
   width: 4px;
   border-radius: 3px;
-  background: var(--acc, #7c5cff);
+  background: var(--acc, #00AFD7);
 }
 .article-content strong {
-  color: #fff;
+  color: #252A34;
 }
 .article-content blockquote {
   margin: 1.6rem 0;
   padding: 0.25rem 0 0.25rem 1.375rem;
-  border-left: 3px solid var(--acc, #7c5cff);
+  border-left: 3px solid var(--acc, #00AFD7);
   font-size: 1.3125rem;
   line-height: 1.45;
-  color: #fff;
+  color: #252A34;
   font-weight: 500;
   letter-spacing: -0.01em;
 }
@@ -72,7 +196,7 @@ html, body {
   padding-left: 1.625rem;
   margin: 0.75rem 0;
   font-size: 1.0625rem;
-  color: #d6dcec;
+  color: #3E4652;
 }
 .article-content li::before {
   content: '';
@@ -82,5 +206,5 @@ html, body {
   width: 8px;
   height: 8px;
   border-radius: 2px;
-  background: var(--acc, #7c5cff);
+  background: var(--acc, #00AFD7);
 }

@@ -1,5 +1,8 @@
 import { useState } from 'react'
 import { Link, NavLink, Outlet } from 'react-router-dom'
+import logoWordmark from '../assets/logos/logo-wordmark.png'
+import logoMark from '../assets/logos/logo-mark.png'
+import AnimatedBackground from './AnimatedBackground'
 
 const links = [
   { to: '/', label: 'Home' },
@@ -11,13 +14,8 @@ const links = [
 
 function Brand() {
   return (
-    <Link to="/" className="flex items-center gap-2.5 text-sm font-bold tracking-[0.1em]">
-      <span className="uppercase text-white">Ceroinfi</span>
-      <span className="flex items-center gap-1 text-xs">
-        <span className="text-[#2DD4BF]">0</span>
-        <span className="text-white/40">&rarr;</span>
-        <span className="text-[#7C5CFF] text-sm">&infin;</span>
-      </span>
+    <Link to="/" className="flex items-center">
+      <img src={logoWordmark} alt="CeroInfi — Learn, Grow, Repeat" className="h-8 w-auto sm:h-9" />
     </Link>
   )
 }
@@ -26,12 +24,13 @@ function Layout() {
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-black text-[#f5f5f7] antialiased">
+    <div className="min-h-screen text-white antialiased">
+      <AnimatedBackground />
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-black/60 backdrop-blur-md">
-        <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 lg:px-8">
+        <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3 lg:px-8">
           <Brand />
 
-          <div className="hidden items-center gap-6 text-sm text-white/80 md:flex">
+          <div className="hidden items-center gap-6 text-sm text-subtle md:flex">
             {links.map((link) => (
               <NavLink
                 key={link.to}
@@ -55,7 +54,7 @@ function Layout() {
           <button
             type="button"
             onClick={() => setMenuOpen((open) => !open)}
-            className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 md:hidden"
+            className="flex h-11 w-11 flex-col items-center justify-center gap-1.5 md:hidden"
             aria-label="Toggle menu"
             aria-expanded={menuOpen}
           >
@@ -70,7 +69,7 @@ function Layout() {
 
         {menuOpen ? (
           <div className="border-t border-white/10 bg-black px-6 py-4 md:hidden">
-            <div className="flex flex-col gap-4 text-sm text-white/80">
+            <div className="flex flex-col gap-4 text-sm text-subtle">
               {links.map((link) => (
                 <NavLink
                   key={link.to}
@@ -94,17 +93,15 @@ function Layout() {
         ) : null}
       </header>
 
-      <main className="pt-16">
+      <main className="relative z-10 pt-16">
         <Outlet />
       </main>
 
-      <footer className="border-t border-white/10 px-6 py-10 text-sm text-white/40 sm:px-8 lg:px-12">
+      <footer className="relative z-10 border-t border-white/10 px-6 py-10 text-sm text-subtle sm:px-8 lg:px-12">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 sm:flex-row">
-          <div className="flex items-center gap-2">
-            <span className="text-[#2DD4BF]">0</span>
-            <span>&rarr;</span>
-            <span className="text-[#7C5CFF]">&infin;</span>
-            <span className="ml-2">CeroInfi &middot; From zero to infinite.</span>
+          <div className="flex items-center gap-2.5">
+            <img src={logoMark} alt="" aria-hidden="true" className="h-5 w-auto" />
+            <span>CeroInfi &middot; From zero to infinite.</span>
           </div>
           <div className="flex gap-6">
             <Link to="/insights" className="hover:text-white">

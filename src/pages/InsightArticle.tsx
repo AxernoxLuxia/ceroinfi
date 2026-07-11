@@ -10,7 +10,7 @@ function InsightArticle() {
   }
 
   return (
-    <div className="bg-black text-white">
+    <div className="text-white">
       <div className="mx-auto max-w-3xl px-6 pt-16 pb-28 sm:px-8">
         <Link
           to="/insights"
@@ -28,7 +28,7 @@ function InsightArticle() {
         <h1 className="mt-4 text-3xl font-black leading-[1.1] tracking-[-0.02em] sm:text-5xl">
           {post.title}
         </h1>
-        <p className="mt-3 text-sm text-white/45">{post.readtime} &middot; Ceroinfi Insights</p>
+        <p className="mt-3 text-sm text-subtle">{post.readtime} &middot; Ceroinfi Insights</p>
 
         <div
           className="article-content mt-10"
@@ -36,10 +36,10 @@ function InsightArticle() {
           dangerouslySetInnerHTML={{ __html: post.html }}
         />
 
-        <div className="mt-16 flex items-center gap-3 border-t border-white/10 pt-8 text-xs uppercase tracking-[0.2em] text-white/40">
+        <div className="mt-16 flex items-center gap-3 border-t border-white/10 pt-8 text-xs uppercase tracking-[0.2em] text-subtle">
           <span>
-            <span className="text-[#2DD4BF]">0</span> &rarr;{' '}
-            <span className="text-[#7C5CFF]">&infin;</span>
+            <span className="text-accent-safe">0</span> &rarr;{' '}
+            <span className="text-accent-safe">&infin;</span>
           </span>
           Ceroinfi &middot; From zero to infinite.
         </div>

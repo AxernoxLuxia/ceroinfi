@@ -19,7 +19,7 @@ const solutions: SolutionItem[] = [
       'Bias-aware structured interview certification',
       'Candidate experience audit and playbook',
     ],
-    accent: '#2DD4BF',
+    accent: '#00AFD7',
     colSpan: 'wide',
   },
   {
@@ -31,7 +31,7 @@ const solutions: SolutionItem[] = [
       'Manager accountability framework, offer to Day 90',
       'Retention-risk indicator training',
     ],
-    accent: '#7C5CFF',
+    accent: '#00AFD7',
     colSpan: 'default',
   },
   {
@@ -42,7 +42,7 @@ const solutions: SolutionItem[] = [
       'Phased 30-60-90 day onboarding roadmap',
       'Role-specific journeys: joiner, competency lead, account manager, location head',
     ],
-    accent: '#A3E635',
+    accent: '#00AFD7',
     colSpan: 'default',
   },
   {
@@ -54,7 +54,7 @@ const solutions: SolutionItem[] = [
       '1:1 mentor pairing plus monthly peer cohort circles',
       'Capstone project and manager scorecard',
     ],
-    accent: '#F59E0B',
+    accent: '#00AFD7',
     colSpan: 'tall',
   },
   {
@@ -65,7 +65,7 @@ const solutions: SolutionItem[] = [
       '1:1 toolkit, templates, and coaching-question bank',
       'Quarterly leadership coaching cohort',
     ],
-    accent: '#38BDF8',
+    accent: '#00AFD7',
     colSpan: 'default',
   },
   {
@@ -76,7 +76,7 @@ const solutions: SolutionItem[] = [
       'Standalone session plans, 2–3 hours each',
       'Pre-session diagnostic and post-session action commitment',
     ],
-    accent: '#F472B6',
+    accent: '#00AFD7',
     colSpan: 'default',
   },
   {
@@ -87,7 +87,7 @@ const solutions: SolutionItem[] = [
       'Milestone plan tied to Day 45–90 and Day 180 risk windows',
       'Role-specific content plugs into the same skeleton',
     ],
-    accent: '#2DD4BF',
+    accent: '#00AFD7',
     colSpan: 'wide',
   },
 ]
@@ -108,14 +108,14 @@ function Solutions() {
     <section
       ref={sectionRef}
       id="solutions"
-      className="relative overflow-hidden bg-black px-6 py-24 sm:px-8 lg:px-12"
+      className="relative overflow-hidden px-6 py-24 sm:px-8 lg:px-12"
     >
       <motion.div
         aria-hidden="true"
         className="pointer-events-none absolute left-[-10%] top-1/3 h-[700px] w-[700px]"
         style={{
           y: reducedMotion ? 0 : glowY,
-          background: 'radial-gradient(closest-side, rgba(45,212,191,.08), transparent 70%)',
+          background: 'radial-gradient(closest-side, rgba(0,175,215,.08), transparent 70%)',
         }}
       />
       <motion.div
@@ -123,7 +123,7 @@ function Solutions() {
         className="pointer-events-none absolute right-[-10%] top-2/3 h-[700px] w-[700px]"
         style={{
           y: reducedMotion ? 0 : glowY,
-          background: 'radial-gradient(closest-side, rgba(124,92,255,.08), transparent 70%)',
+          background: 'radial-gradient(closest-side, rgba(0,175,215,.08), transparent 70%)',
         }}
       />
 
@@ -132,13 +132,10 @@ function Solutions() {
           className="mb-10 max-w-2xl"
           style={reducedMotion ? undefined : { y: headingY }}
         >
-          <p className="mb-4 text-sm font-medium uppercase tracking-[0.35em] text-white/55">
-            What We Offer
-          </p>
-          <h2 className="text-4xl font-semibold leading-tight tracking-[-0.03em] text-white sm:text-5xl">
+          <h1 className="text-4xl font-semibold leading-tight tracking-[-0.03em] text-white text-balance sm:text-5xl">
             Core solutions designed to support people through every stage of growth.
-          </h2>
-          <p className="mt-4 text-base leading-7 text-white/60">
+          </h1>
+          <p className="mt-4 text-base leading-7 text-body">
             This is a menu, not a fixed package. Every section can be engaged as a standalone
             workshop, a short diagnostic sprint, or a multi-month program.
           </p>
@@ -161,17 +158,17 @@ function Solutions() {
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.45, delay: index * 0.05 }}
                 whileHover={{ y: -6 }}
-                className={`group relative flex flex-col overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-7 transition-colors duration-300 hover:border-white/25 ${spanClass}`}
+                className={`group relative flex flex-col overflow-hidden rounded-[1.5rem] border border-white/12 bg-surface p-7 shadow-[0_8px_28px_rgba(37,42,52,0.06)] transition-colors duration-300 hover:border-white/25 ${spanClass}`}
               >
                 <div
                   className="absolute inset-x-0 top-0 h-[3px]"
                   style={{ background: item.accent }}
                 />
                 <h3 className="text-xl font-semibold text-white">{item.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-white/70">{item.description}</p>
+                <p className="mt-3 text-sm leading-7 text-body">{item.description}</p>
                 <ul className="mt-5 flex-1 space-y-2">
                   {item.delivers.map((line) => (
-                    <li key={line} className="flex gap-2.5 text-sm leading-6 text-white/55">
+                    <li key={line} className="flex gap-2.5 text-sm leading-6 text-subtle">
                       <span
                         className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full"
                         style={{ background: item.accent }}

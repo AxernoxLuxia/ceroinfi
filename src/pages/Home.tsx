@@ -7,7 +7,6 @@ import {
 } from 'framer-motion'
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
-import heroArt from '../assets/hero.png'
 
 const aboutLines = [
   'From zero to infinite.',
@@ -20,37 +19,31 @@ const usps = [
     title: 'End-to-end lifecycle partner',
     description:
       'We work across acquisition, onboarding, management, and leadership, so the experience is consistent from hire to leader, not a patchwork of disconnected vendors.',
-    accent: '#2DD4BF',
   },
   {
     title: 'Role-specific design',
     description:
       'Onboarding for a new joiner, a competency lead, an account manager, and a location head are each treated as distinct problems with distinct solutions.',
-    accent: '#7C5CFF',
   },
   {
     title: 'Built on the 4D Method',
     description:
       'Every engagement is diagnosed and measured, not just delivered, so you see the business impact, not just attendance numbers.',
-    accent: '#A3E635',
   },
   {
     title: 'Early-tenure & first-time-manager focus',
     description:
       'We specialize in the two most attrition-prone, most overlooked moments in a career: the first 90 days, and the first promotion into management.',
-    accent: '#F59E0B',
   },
   {
     title: 'Modular, menu-based engagement',
     description:
       'Start with one workshop or one program. There is no requirement to buy a large annual contract to get started.',
-    accent: '#38BDF8',
   },
   {
     title: 'Founder-led, hands-on customization',
     description:
       'Every framework, template, and toolkit is adapted to your language, roles, and culture, rather than handed over as a generic deck.',
-    accent: '#F472B6',
   },
 ]
 
@@ -59,18 +52,22 @@ function AboutLine({
   start,
   end,
   progress,
+  reducedMotion,
 }: {
   line: string
   start: number
   end: number
   progress: MotionValue<number>
+  reducedMotion: boolean
 }) {
   const lineProgress = useTransform(progress, [start, end], [0, 1])
-  const color = useTransform(lineProgress, [0, 1], ['#4b5563', '#ffffff'])
+  // Start from a legible muted tone, not near-invisible grey: the reveal
+  // sharpens already-readable text rather than gating legibility on scroll.
+  const color = useTransform(lineProgress, [0, 1], ['#6B7280', '#252A34'])
 
   return (
     <motion.p
-      style={{ color }}
+      style={reducedMotion ? { color: '#252A34' } : { color }}
       className="text-2xl font-semibold leading-snug tracking-[-0.02em] sm:text-3xl"
     >
       {line}
@@ -94,13 +91,6 @@ function Home() {
   const heroOpacity = useTransform(heroProgress, [0, 0.7, 1], [1, 0.35, 0])
   const heroTextY = useTransform(heroProgress, [0, 1], [0, 120])
 
-  // Hero art: sinks, tilts, and grows with scroll — background drifts the other way
-  const heroArtY = useTransform(heroProgress, [0, 1], [0, 280])
-  const heroArtRotate = useTransform(heroProgress, [0, 1], [0, 20])
-  const heroArtScale = useTransform(heroProgress, [0, 1], [1, 1.25])
-  const heroArtOpacity = useTransform(heroProgress, [0, 0.8, 1], [0.8, 0.5, 0])
-  const bgY = useTransform(heroProgress, [0, 1], [0, -180])
-
   const { scrollYProgress: aboutProgress } = useScroll({
     target: aboutRef,
     offset: ['start end', 'end start'],
@@ -120,60 +110,33 @@ function Home() {
   const whyGlowY = useTransform(whyProgress, [0, 1], [200, -200])
 
   return (
-    <div className="overflow-x-clip bg-black text-white">
+    <div className="overflow-x-clip text-white">
       <section
         ref={heroRef}
         className="relative flex min-h-screen items-center overflow-hidden px-6 sm:px-8 lg:px-12"
       >
-        <motion.div
-          className="absolute inset-[-20%]"
-          style={{
-            y: reducedMotion ? 0 : bgY,
-            background:
-              'radial-gradient(1100px 620px at 82% 8%, rgba(124,92,255,.20), transparent 60%), radial-gradient(900px 560px at 6% 20%, rgba(45,212,191,.14), transparent 60%), #000000',
-          }}
-        />
-
-        <motion.div
-          className="pointer-events-none absolute right-[-8%] top-1/2 w-[42vw] max-w-xl -translate-y-1/2 sm:right-[2%]"
-          style={
-            reducedMotion
-              ? { opacity: 0.8 }
-              : { y: heroArtY, rotate: heroArtRotate, scale: heroArtScale, opacity: heroArtOpacity }
-          }
-        >
-          <motion.img
-            src={heroArt}
-            alt=""
-            aria-hidden="true"
-            className="w-full"
-            animate={reducedMotion ? undefined : { y: [0, -14, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-          />
-        </motion.div>
-
         <motion.div
           style={{
             scale: heroScale,
             opacity: heroOpacity,
             y: reducedMotion ? 0 : heroTextY,
           }}
-          className="relative z-10 mx-auto max-w-3xl"
+          className="relative z-10 mx-auto max-w-3xl text-center"
         >
-          <p className="mb-5 flex items-center gap-3 text-sm font-medium uppercase tracking-[0.35em] text-white/70">
-            <span className="text-[#2DD4BF]">0</span> &rarr;{' '}
-            <span className="text-[#7C5CFF]">&infin;</span>
-            <span className="text-white/40">Learn &middot; Grow &middot; Repeat</span>
+          <p className="mb-5 flex items-center justify-center gap-3 text-sm font-medium uppercase tracking-[0.35em] text-body">
+            <span className="text-accent-safe">0</span> &rarr;{' '}
+            <span className="text-accent-safe">&infin;</span>
+            <span className="text-subtle">Learn &middot; Grow &middot; Repeat</span>
           </p>
           <h1 className="text-5xl font-black leading-[0.95] tracking-[-0.04em] text-white sm:text-6xl md:text-7xl">
             People solutions across the employee lifecycle.
           </h1>
-          <p className="mt-6 max-w-xl text-lg leading-8 text-white/60">
+          <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-body">
             Talent Acquisition &middot; Onboarding &middot; Manager Development &middot;
             Leadership &middot; Soft Skills — diagnosed, designed, delivered, and measured with
             you, not handed to you off the shelf.
           </p>
-          <div className="mt-10 flex flex-wrap gap-4">
+          <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Link
               to="/contact"
               className="rounded-full bg-white px-7 py-3 text-sm font-semibold text-black transition-transform hover:scale-105"
@@ -210,9 +173,6 @@ function Home() {
           className="relative"
           style={reducedMotion ? undefined : { y: visionY }}
         >
-          <p className="mb-10 text-sm font-medium uppercase tracking-[0.35em] text-white/55">
-            Our Vision
-          </p>
           <div className="space-y-7">
             {aboutLines.map((line, index) => {
               const start = index / aboutLines.length
@@ -224,6 +184,7 @@ function Home() {
                   start={start}
                   end={end}
                   progress={aboutProgress}
+                  reducedMotion={Boolean(reducedMotion)}
                 />
               )
             })}
@@ -238,7 +199,7 @@ function Home() {
           style={{
             y: reducedMotion ? 0 : whyGlowY,
             background:
-              'radial-gradient(closest-side, rgba(124,92,255,.10), transparent 70%)',
+              'radial-gradient(closest-side, rgba(0,175,215,.10), transparent 70%)',
           }}
         />
 
@@ -247,32 +208,45 @@ function Home() {
             className="mb-12 max-w-2xl"
             style={reducedMotion ? undefined : { y: whyHeadingY }}
           >
-            <p className="mb-4 text-sm font-medium uppercase tracking-[0.35em] text-white/55">
-              Why CeroInfi
-            </p>
             <h2 className="text-4xl font-semibold leading-tight tracking-[-0.03em] text-white sm:text-5xl">
               There is no shortage of training vendors. Here is what's different.
             </h2>
           </motion.div>
 
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {usps.map((item, index) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 40, scale: 0.96 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.5, delay: (index % 3) * 0.1, ease: 'easeOut' }}
-                className="rounded-[1.25rem] border border-white/10 bg-white/[0.03] p-7"
-              >
-                <div
-                  className="mb-4 h-1.5 w-10 rounded-full"
-                  style={{ background: item.accent }}
-                />
-                <h3 className="text-lg font-semibold text-white">{item.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-white/60">{item.description}</p>
-              </motion.div>
-            ))}
+            {usps.map((item, index) => {
+              const lead = index === 0
+              return (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 40, scale: 0.96 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.5, delay: (index % 3) * 0.1, ease: 'easeOut' }}
+                  className={`rounded-[1.25rem] border border-white/12 bg-surface p-7 shadow-[0_8px_28px_rgba(37,42,52,0.06)] ${
+                    lead ? 'sm:col-span-2 lg:row-span-2 lg:flex lg:flex-col lg:justify-end' : ''
+                  }`}
+                >
+                  <div
+                    className="mb-4 h-1.5 w-10 rounded-full bg-accent"
+                  />
+                  <h3
+                    className={`font-semibold text-white ${
+                      lead ? 'text-2xl tracking-[-0.01em]' : 'text-lg'
+                    }`}
+                  >
+                    {item.title}
+                  </h3>
+                  <p
+                    className={`mt-3 leading-6 text-body ${
+                      lead ? 'text-base leading-7' : 'text-sm'
+                    }`}
+                  >
+                    {item.description}
+                  </p>
+                </motion.div>
+              )
+            })}
           </div>
         </div>
       </section>

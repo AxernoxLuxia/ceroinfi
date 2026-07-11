@@ -12,20 +12,17 @@ function Insights() {
   )
 
   return (
-    <div className="bg-black text-white">
+    <div className="text-white">
       <section className="mx-auto max-w-6xl px-6 pt-20 pb-12 sm:px-8 lg:px-12">
-        <p className="mb-4 flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.35em] text-white/55">
-          <span className="h-[3px] w-6 bg-gradient-to-r from-[#2DD4BF] to-[#7C5CFF]" />
+        <p className="mb-4 flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.35em] text-subtle">
+          <span className="h-[3px] w-6 rounded-full bg-accent" />
           Ceroinfi Insights
         </p>
-        <h1 className="max-w-3xl text-4xl font-black leading-[1.05] tracking-[-0.03em] sm:text-6xl">
+        <h1 className="max-w-3xl text-4xl font-black leading-[1.05] tracking-[-0.03em] text-balance sm:text-6xl">
           The science of how people{' '}
-          <span className="bg-gradient-to-r from-[#2DD4BF] via-[#38BDF8] to-[#7C5CFF] bg-clip-text text-transparent">
-            actually learn
-          </span>
-          .
+          <span className="text-accent-safe">actually learn</span>.
         </h1>
-        <p className="mt-6 max-w-2xl text-lg leading-8 text-white/60">
+        <p className="mt-6 max-w-2xl text-lg leading-8 text-body">
           Evidence-led thinking on learning design, measurement, and building organizations that
           get faster at learning than the world changes around them.
         </p>
@@ -41,7 +38,7 @@ function Insights() {
               onClick={() => setActive(name)}
             />
           ))}
-          <span className="ml-auto text-sm text-white/40">
+          <span className="ml-auto text-sm text-subtle">
             {filtered.length} essay{filtered.length === 1 ? '' : 's'}
           </span>
         </div>
@@ -59,8 +56,7 @@ function Insights() {
             >
               <Link
                 to={`/insights/${post.slug}`}
-                className="group flex h-full flex-col rounded-[1.25rem] border border-white/10 bg-white/[0.03] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-white/25"
-                style={{ boxShadow: '0 0 0 0 rgba(255,255,255,0)' }}
+                className="group flex h-full flex-col rounded-[1.25rem] border border-white/12 bg-surface p-6 shadow-[0_8px_28px_rgba(37,42,52,0.06)] transition-all duration-300 hover:-translate-y-1 hover:border-white/25"
               >
                 <span
                   className="text-[11px] font-bold uppercase tracking-[0.14em]"
@@ -71,9 +67,9 @@ function Insights() {
                 <h3 className="mt-3 text-lg font-bold leading-snug tracking-[-0.01em]">
                   {post.title}
                 </h3>
-                <p className="mt-3 flex-1 text-sm leading-6 text-white/60">{post.excerpt}</p>
+                <p className="mt-3 flex-1 text-sm leading-6 text-body">{post.excerpt}</p>
                 <div className="mt-6 flex items-center justify-between">
-                  <span className="text-xs text-white/40">{post.readtime}</span>
+                  <span className="text-xs text-subtle">{post.readtime}</span>
                   <span
                     className="inline-flex items-center gap-1.5 text-sm font-semibold"
                     style={{ color: post.accent }}
@@ -107,14 +103,14 @@ function FilterChip({
   return (
     <button
       onClick={onClick}
-      className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition-all duration-150 ${
+      className={`inline-flex min-h-11 items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition-all duration-150 ${
         active
           ? 'border-white bg-white text-black'
-          : 'border-white/15 bg-white/[0.02] text-white hover:border-white/40'
+          : 'border-white/15 bg-surface/50 text-white hover:border-white/40'
       }`}
     >
       {color ? (
-        <span className="h-2 w-2 rounded-sm" style={{ background: active ? '#0a0f1f' : color }} />
+        <span className="h-2 w-2 rounded-sm" style={{ background: active ? '#F7F9FB' : color }} />
       ) : null}
       {label}
     </button>
