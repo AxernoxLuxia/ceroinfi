@@ -13,7 +13,7 @@ const solutions: SolutionItem[] = [
   {
     title: 'Talent Acquisition',
     description:
-      'Helping recruiters attract, assess, and close the right talent, faster — sharper positioning, consistent evaluation, and a hiring experience candidates don’t drop out of.',
+      'Helping recruiters attract, assess, and close the right talent, faster: sharper positioning, consistent evaluation, and a hiring experience candidates don’t drop out of.',
     delivers: [
       'EVP and employer branding sprint',
       'Bias-aware structured interview certification',
@@ -37,10 +37,10 @@ const solutions: SolutionItem[] = [
   {
     title: 'Onboarding',
     description:
-      'Onboarding is not one program — it’s a different experience for the new joiner, the trainer, the account manager, and the location head. We design each as a parallel journey.',
+      'Onboarding isn’t one program. It’s a different experience for the new joiner, the trainer, the account manager, and the location head. We design each as its own parallel track.',
     delivers: [
       'Phased 30-60-90 day onboarding roadmap',
-      'Role-specific journeys: joiner, competency lead, account manager, location head',
+      'Role-specific tracks: joiner, competency lead, account manager, location head',
     ],
     accent: '#00AFD7',
     colSpan: 'default',
@@ -60,7 +60,7 @@ const solutions: SolutionItem[] = [
   {
     title: 'Leadership 1:1s',
     description:
-      'The 1:1 is the single highest-leverage habit a leader has — most just aren’t taught how to run one.',
+      'The 1:1 is the single highest-leverage habit a leader has, and most just aren’t taught how to run one.',
     delivers: [
       '1:1 toolkit, templates, and coaching-question bank',
       'Quarterly leadership coaching cohort',
@@ -71,7 +71,7 @@ const solutions: SolutionItem[] = [
   {
     title: 'Soft Skills',
     description:
-      'Short, focused sessions that fix specific, everyday friction points — communication, conflict, presentation, and cross-functional collaboration.',
+      'Short, focused sessions that fix specific, everyday friction points: communication, conflict, presentation, and cross-functional collaboration.',
     delivers: [
       'Standalone session plans, 2–3 hours each',
       'Pre-session diagnostic and post-session action commitment',
@@ -132,7 +132,7 @@ function Solutions() {
           className="mb-10 max-w-2xl"
           style={reducedMotion ? undefined : { y: headingY }}
         >
-          <h1 className="text-4xl font-semibold leading-tight tracking-[-0.03em] text-white text-balance sm:text-5xl">
+          <h1 className="text-4xl font-semibold leading-tight tracking-[-0.03em] text-black text-balance sm:text-5xl">
             Core solutions designed to support people through every stage of growth.
           </h1>
           <p className="mt-4 text-base leading-7 text-body">
@@ -158,13 +158,13 @@ function Solutions() {
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.45, delay: index * 0.05 }}
                 whileHover={{ y: -6 }}
-                className={`group relative flex flex-col overflow-hidden rounded-[1.5rem] border border-white/12 bg-surface p-7 shadow-[0_8px_28px_rgba(37,42,52,0.06)] transition-colors duration-300 hover:border-white/25 ${spanClass}`}
+                className={`group relative flex flex-col overflow-hidden rounded-[1.5rem] border border-black/12 bg-surface p-7 shadow-[0_8px_28px_rgba(37,42,52,0.06)] transition-colors duration-300 hover:border-black/25 ${spanClass}`}
               >
                 <div
                   className="absolute inset-x-0 top-0 h-[3px]"
                   style={{ background: item.accent }}
                 />
-                <h3 className="text-xl font-semibold text-white">{item.title}</h3>
+                <h3 className="text-xl font-semibold text-black">{item.title}</h3>
                 <p className="mt-3 text-sm leading-7 text-body">{item.description}</p>
                 <ul className="mt-5 flex-1 space-y-2">
                   {item.delivers.map((line) => (

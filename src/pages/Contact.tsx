@@ -1,8 +1,7 @@
 import { useState, type FormEvent } from 'react'
-import logoWordmark from '../assets/logos/logo-wordmark.png'
 import logoWordmarkMono from '../assets/logos/logo-wordmark-mono.png'
 
-const CONTACT_EMAIL = 'hello@ceroinfi.com'
+const CONTACT_EMAIL = 'ceroinfi@gmail.com'
 
 function Contact() {
   const [name, setName] = useState('')
@@ -12,7 +11,7 @@ function Contact() {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const subject = encodeURIComponent(`Diagnostic conversation — ${company || name}`)
+    const subject = encodeURIComponent(`Diagnostic conversation: ${company || name}`)
     const body = encodeURIComponent(
       `Name: ${name}\nCompany: ${company}\nEmail: ${email}\n\n${message}`,
     )
@@ -20,13 +19,8 @@ function Contact() {
   }
 
   return (
-    <div className="text-white">
+    <div className="text-black">
       <section className="mx-auto max-w-3xl px-6 pt-24 pb-16 text-center sm:px-8 lg:px-12">
-        <img
-          src={logoWordmark}
-          alt="CeroInfi — Learn, Grow, Repeat"
-          className="mx-auto mb-8 h-12 w-auto sm:h-14"
-        />
         <p className="mb-5 text-sm font-medium uppercase tracking-[0.35em] text-subtle">
           Getting Started
         </p>
@@ -49,7 +43,7 @@ function Contact() {
         />
         <form
           onSubmit={handleSubmit}
-          className="relative mx-auto max-w-2xl rounded-[1.5rem] border border-white/12 bg-surface p-8 shadow-[0_10px_40px_rgba(37,42,52,0.08)] sm:p-10"
+          className="relative mx-auto max-w-2xl rounded-[1.5rem] border border-black/12 bg-surface p-8 shadow-[0_10px_40px_rgba(37,42,52,0.08)] sm:p-10"
         >
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <Field label="Your name">
@@ -58,7 +52,7 @@ function Contact() {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full rounded-lg border border-white/15 bg-black px-4 py-3 text-sm text-white transition-colors placeholder:text-[#6B7280] focus:border-[#006B84]"
+                className="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black transition-colors placeholder:text-[#6B7280] focus:border-[#006B84]"
                 placeholder="Jane Doe"
               />
             </Field>
@@ -68,7 +62,7 @@ function Contact() {
                 type="text"
                 value={company}
                 onChange={(e) => setCompany(e.target.value)}
-                className="w-full rounded-lg border border-white/15 bg-black px-4 py-3 text-sm text-white transition-colors placeholder:text-[#6B7280] focus:border-[#006B84]"
+                className="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black transition-colors placeholder:text-[#6B7280] focus:border-[#006B84]"
                 placeholder="Acme Inc."
               />
             </Field>
@@ -81,7 +75,7 @@ function Contact() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full rounded-lg border border-white/15 bg-black px-4 py-3 text-sm text-white transition-colors placeholder:text-[#6B7280] focus:border-[#006B84]"
+                className="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black transition-colors placeholder:text-[#6B7280] focus:border-[#006B84]"
                 placeholder="jane@acme.com"
               />
             </Field>
@@ -94,7 +88,7 @@ function Contact() {
                 rows={4}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                className="w-full resize-none rounded-lg border border-white/15 bg-black px-4 py-3 text-sm text-white transition-colors placeholder:text-[#6B7280] focus:border-[#006B84]"
+                className="w-full resize-none rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black transition-colors placeholder:text-[#6B7280] focus:border-[#006B84]"
                 placeholder="e.g. our first-time managers are struggling, or our 90-day attrition is climbing..."
               />
             </Field>
@@ -102,13 +96,10 @@ function Contact() {
 
           <button
             type="submit"
-            className="mt-7 w-full rounded-full bg-white px-7 py-3 text-sm font-semibold text-black transition-transform hover:scale-[1.02]"
+            className="mt-7 w-full rounded-full bg-ink px-7 py-3 text-sm font-semibold text-white transition-transform hover:scale-[1.02]"
           >
             Send &rarr;
           </button>
-          <p className="mt-4 text-center text-xs text-subtle">
-            Opens your email client with this addressed to {CONTACT_EMAIL}.
-          </p>
         </form>
       </section>
     </div>

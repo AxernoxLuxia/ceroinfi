@@ -10,11 +10,11 @@ function InsightArticle() {
   }
 
   return (
-    <div className="text-white">
+    <div className="text-black">
       <div className="mx-auto max-w-3xl px-6 pt-16 pb-28 sm:px-8">
         <Link
           to="/insights"
-          className="mb-10 inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white/80 transition-colors hover:border-white/40 hover:text-white"
+          className="mb-10 inline-flex items-center gap-2 rounded-full border border-black/15 px-4 py-2 text-sm font-semibold text-black/80 transition-colors hover:border-black/40 hover:text-black"
         >
           &larr; All insights
         </Link>
@@ -36,7 +36,7 @@ function InsightArticle() {
           dangerouslySetInnerHTML={{ __html: post.html }}
         />
 
-        <div className="mt-16 flex items-center gap-3 border-t border-white/10 pt-8 text-xs uppercase tracking-[0.2em] text-subtle">
+        <div className="mt-16 flex items-center gap-3 border-t border-black/10 pt-8 text-xs uppercase tracking-[0.2em] text-subtle">
           <span>
             <span className="text-accent-safe">0</span> &rarr;{' '}
             <span className="text-accent-safe">&infin;</span>

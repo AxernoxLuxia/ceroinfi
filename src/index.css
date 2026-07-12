@@ -10,17 +10,24 @@
   raw accent cyan doesn't meet body-text contrast on a light canvas.
 */
 @theme {
-  --color-black: #F7F9FB;        /* canvas — page background */
-  --color-white: #252A34;        /* ink — headings / full-strength text */
+  --color-black: #252A34;        /* ink — headings / full-strength text */
+  --color-white: #F7F9FB;        /* canvas — page background */
   --color-surface: #EAF5F8;      /* light cyan-tinted card / panel fill */
   --color-accent: #00AFD7;       /* brand cyan — decorative fills only */
   --color-accent-safe: #006B84;  /* text-safe cyan — legible text/links (AA on canvas + surface) */
+  --color-ink: #0B2B34;          /* deep brand teal — dark chrome (nav, footer, dark buttons).
+                                    Reads as the dark end of the cyan brand, not the blue-violet
+                                    that #252A34 becomes next to the cyan canvas. */
 
   /* Solid muted text tokens — replace opacity-based greys, which failed WCAG AA
      on the light canvas. Both clear 4.5:1 over canvas, the card surface, and the
      animated background tint. Hierarchy comes from size/weight, not lightness. */
   --color-body: #3E4652;         /* body copy */
-  --color-subtle: #4B5563;       /* labels, meta, secondary */
+  --color-subtle: #414B58;       /* labels, meta, secondary (darkened for the deeper cyan canvas) */
+}
+
+:root {
+  color-scheme: light;
 }
 
 html, body {
@@ -29,8 +36,9 @@ html, body {
   box-sizing: border-box;
   scroll-behavior: smooth;
 
-  background-color: #F7F9FB;
+  background-color: #83C5DB;
   color: #252A34;
+  color-scheme: light;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -64,7 +72,9 @@ select:focus-visible {
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  background-color: #F7F9FB;
+  /* The field itself is a mid cyan so the page reads as brand colour, not
+     white; the drifting blobs add gentle depth on top. */
+  background-color: #83C5DB;
 }
 .cero-blob {
   position: absolute;
@@ -73,41 +83,41 @@ select:focus-visible {
   will-change: transform;
 }
 .cero-blob--1 {
-  width: 48vw;
-  height: 48vw;
-  top: -10vw;
-  left: -6vw;
+  width: 58vw;
+  height: 58vw;
+  top: -12vw;
+  left: -8vw;
   background: radial-gradient(
     circle at center,
-    rgba(0, 175, 215, 0.55) 0%,
-    rgba(0, 175, 215, 0.28) 38%,
-    transparent 72%
+    rgba(0, 155, 195, 0.4) 0%,
+    rgba(0, 155, 195, 0.22) 38%,
+    transparent 74%
   );
   animation: cero-drift-1 28s ease-in-out infinite;
 }
 .cero-blob--2 {
-  width: 54vw;
-  height: 54vw;
-  bottom: -16vw;
-  right: -8vw;
+  width: 64vw;
+  height: 64vw;
+  bottom: -18vw;
+  right: -10vw;
   background: radial-gradient(
     circle at center,
-    rgba(0, 175, 215, 0.48) 0%,
-    rgba(0, 175, 215, 0.24) 40%,
-    transparent 70%
+    rgba(0, 155, 195, 0.38) 0%,
+    rgba(0, 155, 195, 0.2) 40%,
+    transparent 72%
   );
   animation: cero-drift-2 34s ease-in-out infinite;
 }
 .cero-blob--3 {
-  width: 42vw;
-  height: 42vw;
-  top: 28%;
-  left: 60%;
+  width: 52vw;
+  height: 52vw;
+  top: 26%;
+  left: 58%;
   background: radial-gradient(
     circle at center,
-    rgba(127, 219, 239, 0.5) 0%,
-    rgba(127, 219, 239, 0.24) 42%,
-    transparent 74%
+    rgba(0, 175, 215, 0.32) 0%,
+    rgba(0, 175, 215, 0.18) 42%,
+    transparent 76%
   );
   animation: cero-drift-3 31s ease-in-out infinite;
 }

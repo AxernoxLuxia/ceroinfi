@@ -10,8 +10,8 @@ import { Link } from 'react-router-dom'
 
 const aboutLines = [
   'From zero to infinite.',
-  'Every learner starts somewhere — a single skill, a first team, a new title. Our job is to make sure the journey from that starting point never ends.',
-  'Continuous, compounding, human development — diagnosed, designed, delivered, and measured at every stage of the employee lifecycle.',
+  'Every learner starts somewhere: a single skill, a first team, a new title. Our job is to make sure the climb from that starting point never ends.',
+  'Continuous, human development that builds on itself, diagnosed, designed, delivered, and measured at every stage of the employee lifecycle.',
 ]
 
 const usps = [
@@ -61,8 +61,8 @@ function AboutLine({
   reducedMotion: boolean
 }) {
   const lineProgress = useTransform(progress, [start, end], [0, 1])
-  // Start from a legible muted tone, not near-invisible grey: the reveal
-  // sharpens already-readable text rather than gating legibility on scroll.
+  // Reveal from a legible muted tone to ink on the light band, sharpening
+  // already-readable text rather than gating legibility on scroll.
   const color = useTransform(lineProgress, [0, 1], ['#6B7280', '#252A34'])
 
   return (
@@ -96,21 +96,22 @@ function Home() {
     offset: ['start end', 'end start'],
   })
 
-  // Vision text and the ∞ watermark drift at different speeds
-  const visionY = useTransform(aboutProgress, [0, 1], [70, -70])
-  const markY = useTransform(aboutProgress, [0, 1], [-160, 160])
-  const markRotate = useTransform(aboutProgress, [0, 1], [-8, 8])
-  const markOpacity = useTransform(aboutProgress, [0, 0.5, 1], [0, 0.07, 0])
+  // Right-side brand watermark: parallax drift + a 0 -> ∞ transition on scroll.
+  // "0" holds while entering, then crossfades/scales into "∞" as you scroll past.
+  const zeroOpacity = useTransform(aboutProgress, [0.08, 0.52], [0.16, 0])
+  const zeroScale = useTransform(aboutProgress, [0.08, 0.52], [1, 0.6])
+  const infOpacity = useTransform(aboutProgress, [0.34, 0.74], [0, 0.16])
+  const infScale = useTransform(aboutProgress, [0.34, 0.74], [0.6, 1])
+  const markY = useTransform(aboutProgress, [0, 1], [130, -130])
 
   const { scrollYProgress: whyProgress } = useScroll({
     target: whyRef,
     offset: ['start end', 'end start'],
   })
-  const whyHeadingY = useTransform(whyProgress, [0, 1], [90, -60])
   const whyGlowY = useTransform(whyProgress, [0, 1], [200, -200])
 
   return (
-    <div className="overflow-x-clip text-white">
+    <div className="overflow-x-clip text-black">
       <section
         ref={heroRef}
         className="relative flex min-h-screen items-center overflow-hidden px-6 sm:px-8 lg:px-12"
@@ -128,24 +129,24 @@ function Home() {
             <span className="text-accent-safe">&infin;</span>
             <span className="text-subtle">Learn &middot; Grow &middot; Repeat</span>
           </p>
-          <h1 className="text-5xl font-black leading-[0.95] tracking-[-0.04em] text-white sm:text-6xl md:text-7xl">
+          <h1 className="text-5xl font-black leading-[0.95] tracking-[-0.04em] text-black sm:text-6xl md:text-7xl">
             People solutions across the employee lifecycle.
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-body">
             Talent Acquisition &middot; Onboarding &middot; Manager Development &middot;
-            Leadership &middot; Soft Skills — diagnosed, designed, delivered, and measured with
-            you, not handed to you off the shelf.
+            Leadership &middot; Soft Skills. Diagnosed, designed, delivered, and measured with
+            you, built around your roles rather than pulled off a shelf.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Link
               to="/contact"
-              className="rounded-full bg-white px-7 py-3 text-sm font-semibold text-black transition-transform hover:scale-105"
+              className="rounded-full bg-ink px-7 py-3 text-sm font-semibold text-white transition-transform hover:scale-105"
             >
               Start the conversation
             </Link>
             <Link
               to="/method"
-              className="rounded-full border border-white/20 px-7 py-3 text-sm font-semibold text-white transition-colors hover:border-white/50"
+              className="rounded-full border border-black/20 px-7 py-3 text-sm font-semibold text-black transition-colors hover:border-black/50"
             >
               See the 4D Method
             </Link>
@@ -155,24 +156,40 @@ function Home() {
 
       <section
         ref={aboutRef}
-        className="relative mx-auto flex max-w-4xl flex-col justify-center gap-10 px-6 py-32 sm:px-8 lg:px-12"
+        className="relative overflow-hidden bg-surface/50 px-6 py-32 sm:px-8 lg:px-12"
       >
-        <motion.span
-          aria-hidden="true"
-          className="pointer-events-none absolute right-[-4rem] top-1/2 -translate-y-1/2 select-none text-[24rem] font-black leading-none text-white"
-          style={
-            reducedMotion
-              ? { opacity: 0.05 }
-              : { y: markY, rotate: markRotate, opacity: markOpacity }
-          }
-        >
-          &infin;
-        </motion.span>
+        {/* Brand watermark on the right: parallax drift + a 0 -> ∞ transition on scroll. */}
+        {reducedMotion ? (
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute right-[2%] top-1/2 -translate-y-1/2 select-none text-[clamp(14rem,34vw,28rem)] font-black leading-none text-accent-safe/15"
+          >
+            &infin;
+          </span>
+        ) : (
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-end overflow-hidden pr-[2%]">
+            <motion.div
+              aria-hidden="true"
+              style={{ y: markY }}
+              className="grid place-items-center [&>*]:[grid-area:1/1]"
+            >
+              <motion.span
+                style={{ opacity: zeroOpacity, scale: zeroScale }}
+                className="select-none text-[clamp(14rem,34vw,28rem)] font-black leading-none text-accent-safe"
+              >
+                0
+              </motion.span>
+              <motion.span
+                style={{ opacity: infOpacity, scale: infScale }}
+                className="select-none text-[clamp(14rem,34vw,28rem)] font-black leading-none text-accent-safe"
+              >
+                &infin;
+              </motion.span>
+            </motion.div>
+          </div>
+        )}
 
-        <motion.div
-          className="relative"
-          style={reducedMotion ? undefined : { y: visionY }}
-        >
+        <div className="relative mx-auto max-w-4xl">
           <div className="space-y-7">
             {aboutLines.map((line, index) => {
               const start = index / aboutLines.length
@@ -189,10 +206,10 @@ function Home() {
               )
             })}
           </div>
-        </motion.div>
+        </div>
       </section>
 
-      <section ref={whyRef} className="relative overflow-hidden px-6 pb-28 sm:px-8 lg:px-12">
+      <section ref={whyRef} className="relative overflow-hidden px-6 pb-28 pt-8 sm:px-8 lg:px-12">
         <motion.div
           aria-hidden="true"
           className="pointer-events-none absolute left-1/2 top-0 h-[600px] w-[900px] -translate-x-1/2"
@@ -204,14 +221,11 @@ function Home() {
         />
 
         <div className="relative mx-auto max-w-6xl">
-          <motion.div
-            className="mb-12 max-w-2xl"
-            style={reducedMotion ? undefined : { y: whyHeadingY }}
-          >
-            <h2 className="text-4xl font-semibold leading-tight tracking-[-0.03em] text-white sm:text-5xl">
+          <div className="mb-12 max-w-2xl">
+            <h2 className="text-4xl font-semibold leading-tight tracking-[-0.03em] text-black sm:text-5xl">
               There is no shortage of training vendors. Here is what's different.
             </h2>
-          </motion.div>
+          </div>
 
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {usps.map((item, index) => {
@@ -223,7 +237,7 @@ function Home() {
                   whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   viewport={{ once: true, amount: 0.3 }}
                   transition={{ duration: 0.5, delay: (index % 3) * 0.1, ease: 'easeOut' }}
-                  className={`rounded-[1.25rem] border border-white/12 bg-surface p-7 shadow-[0_8px_28px_rgba(37,42,52,0.06)] ${
+                  className={`rounded-[1.25rem] border border-black/12 bg-surface p-7 shadow-[0_8px_28px_rgba(37,42,52,0.06)] ${
                     lead ? 'sm:col-span-2 lg:row-span-2 lg:flex lg:flex-col lg:justify-end' : ''
                   }`}
                 >
@@ -231,7 +245,7 @@ function Home() {
                     className="mb-4 h-1.5 w-10 rounded-full bg-accent"
                   />
                   <h3
-                    className={`font-semibold text-white ${
+                    className={`font-semibold text-black ${
                       lead ? 'text-2xl tracking-[-0.01em]' : 'text-lg'
                     }`}
                   >

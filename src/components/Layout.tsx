@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Link, NavLink, Outlet } from 'react-router-dom'
-import logoWordmark from '../assets/logos/logo-wordmark.png'
-import logoMark from '../assets/logos/logo-mark.png'
+import logoWordmarkMono from '../assets/logos/logo-wordmark-mono.png'
 import AnimatedBackground from './AnimatedBackground'
 
 const links = [
@@ -15,7 +14,12 @@ const links = [
 function Brand() {
   return (
     <Link to="/" className="flex items-center">
-      <img src={logoWordmark} alt="CeroInfi — Learn, Grow, Repeat" className="h-8 w-auto sm:h-9" />
+      {/* Mono wordmark (cyan "Cero" + white "Infi") reads cleanly on the dark bar */}
+      <img
+        src={logoWordmarkMono}
+        alt="CeroInfi — Learn, Grow, Repeat"
+        className="h-7 w-auto sm:h-8"
+      />
     </Link>
   )
 }
@@ -24,13 +28,13 @@ function Layout() {
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
-    <div className="min-h-screen text-white antialiased">
+    <div className="min-h-screen text-black antialiased">
       <AnimatedBackground />
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-black/60 backdrop-blur-md">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-ink backdrop-blur-md">
         <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3 lg:px-8">
           <Brand />
 
-          <div className="hidden items-center gap-6 text-sm text-subtle md:flex">
+          <div className="hidden items-center gap-6 text-sm text-white/75 md:flex">
             {links.map((link) => (
               <NavLink
                 key={link.to}
@@ -45,7 +49,7 @@ function Layout() {
             ))}
             <Link
               to="/contact"
-              className="rounded-full border border-white/20 px-4 py-1.5 font-semibold text-white transition-colors hover:border-white/50"
+              className="rounded-full border border-white/25 px-4 py-1.5 font-semibold text-white transition-colors hover:border-white/60"
             >
               Contact
             </Link>
@@ -68,8 +72,8 @@ function Layout() {
         </nav>
 
         {menuOpen ? (
-          <div className="border-t border-white/10 bg-black px-6 py-4 md:hidden">
-            <div className="flex flex-col gap-4 text-sm text-subtle">
+          <div className="border-t border-white/10 bg-ink px-6 py-4 md:hidden">
+            <div className="flex flex-col gap-4 text-sm text-white/75">
               {links.map((link) => (
                 <NavLink
                   key={link.to}
@@ -97,17 +101,21 @@ function Layout() {
         <Outlet />
       </main>
 
-      <footer className="relative z-10 border-t border-white/10 px-6 py-10 text-sm text-subtle sm:px-8 lg:px-12">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 sm:flex-row">
-          <div className="flex items-center gap-2.5">
-            <img src={logoMark} alt="" aria-hidden="true" className="h-5 w-auto" />
-            <span>CeroInfi &middot; From zero to infinite.</span>
+      <footer className="relative z-10 bg-ink px-6 py-12 text-sm text-white/70 sm:px-8 lg:px-12">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-5 sm:flex-row">
+          <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
+            <img
+              src={logoWordmarkMono}
+              alt="CeroInfi"
+              className="h-6 w-auto"
+            />
+            <span className="text-white/55">From zero to infinite.</span>
           </div>
           <div className="flex gap-6">
-            <Link to="/insights" className="hover:text-white">
+            <Link to="/insights" className="transition-colors hover:text-white">
               Insights
             </Link>
-            <Link to="/contact" className="hover:text-white">
+            <Link to="/contact" className="transition-colors hover:text-white">
               Contact
             </Link>
           </div>

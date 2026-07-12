@@ -12,7 +12,7 @@ function Insights() {
   )
 
   return (
-    <div className="text-white">
+    <div className="text-black">
       <section className="mx-auto max-w-6xl px-6 pt-20 pb-12 sm:px-8 lg:px-12">
         <p className="mb-4 flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.35em] text-subtle">
           <span className="h-[3px] w-6 rounded-full bg-accent" />
@@ -56,7 +56,7 @@ function Insights() {
             >
               <Link
                 to={`/insights/${post.slug}`}
-                className="group flex h-full flex-col rounded-[1.25rem] border border-white/12 bg-surface p-6 shadow-[0_8px_28px_rgba(37,42,52,0.06)] transition-all duration-300 hover:-translate-y-1 hover:border-white/25"
+                className="group flex h-full flex-col rounded-[1.25rem] border border-black/12 bg-surface p-6 shadow-[0_8px_28px_rgba(37,42,52,0.06)] transition-all duration-300 hover:-translate-y-1 hover:border-black/25"
               >
                 <span
                   className="text-[11px] font-bold uppercase tracking-[0.14em]"
@@ -105,8 +105,8 @@ function FilterChip({
       onClick={onClick}
       className={`inline-flex min-h-11 items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition-all duration-150 ${
         active
-          ? 'border-white bg-white text-black'
-          : 'border-white/15 bg-surface/50 text-white hover:border-white/40'
+          ? 'border-ink bg-ink text-white'
+          : 'border-black/15 bg-surface/50 text-black hover:border-black/40'
       }`}
     >
       {color ? (
