@@ -11,10 +11,21 @@ const links = [
   { to: '/about', label: 'About' },
 ]
 
+const footerNav = {
+  'Company': [
+    { to: '/about', label: 'About' },
+    { to: '/method', label: 'The 4D Method' },
+    { to: '/solutions', label: 'Solutions' },
+    { to: '/contact', label: 'Contact' },
+  ],
+  'Resources': [
+    { to: '/insights', label: 'Insights' },
+  ],
+}
+
 function Brand() {
   return (
     <Link to="/" className="flex items-center">
-      {/* Mono wordmark (cyan "Cero" + white "Infi") reads cleanly on the dark bar */}
       <img
         src={logoWordmarkMono}
         alt="CeroInfi — Learn, Grow, Repeat"
@@ -31,10 +42,10 @@ function Layout() {
     <div className="min-h-screen text-black antialiased">
       <AnimatedBackground />
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-ink backdrop-blur-md">
-        <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3 lg:px-8">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3 lg:px-10">
           <Brand />
 
-          <div className="hidden items-center gap-6 text-sm text-white/75 md:flex">
+          <div className="hidden items-center gap-7 text-sm text-white/75 md:flex">
             {links.map((link) => (
               <NavLink
                 key={link.to}
@@ -49,7 +60,7 @@ function Layout() {
             ))}
             <Link
               to="/contact"
-              className="rounded-full border border-white/25 px-4 py-1.5 font-semibold text-white transition-colors hover:border-white/60"
+              className="rounded-full border border-white/25 px-5 py-1.5 font-semibold text-white transition-colors hover:border-white/60"
             >
               Contact
             </Link>
@@ -101,23 +112,47 @@ function Layout() {
         <Outlet />
       </main>
 
-      <footer className="relative z-10 bg-ink px-6 py-12 text-sm text-white/70 sm:px-8 lg:px-12">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-5 sm:flex-row">
-          <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
-            <img
-              src={logoWordmarkMono}
-              alt="CeroInfi"
-              className="h-6 w-auto"
-            />
-            <span className="text-white/55">From zero to infinite.</span>
+      <footer className="relative z-10 bg-ink text-white/70">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+          <div className="grid grid-cols-1 gap-12 border-b border-white/10 py-16 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr]">
+            <div>
+              <img
+                src={logoWordmarkMono}
+                alt="CeroInfi"
+                className="h-7 w-auto"
+              />
+              <p className="mt-4 max-w-sm text-sm leading-6 text-white/55">
+                Continuous, compounding, human development for people, managers, and leaders at every altitude.
+              </p>
+              <p className="mt-6 text-sm font-medium text-accent">
+                Learn &infin; Grow &infin; Repeat
+              </p>
+            </div>
+
+            {Object.entries(footerNav).map(([heading, items]) => (
+              <div key={heading}>
+                <p className="text-xs font-semibold uppercase tracking-[0.15em] text-white/40">
+                  {heading}
+                </p>
+                <ul className="mt-4 space-y-3">
+                  {items.map((item) => (
+                    <li key={item.to}>
+                      <Link
+                        to={item.to}
+                        className="text-sm text-white/60 transition-colors hover:text-white"
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
-          <div className="flex gap-6">
-            <Link to="/insights" className="transition-colors hover:text-white">
-              Insights
-            </Link>
-            <Link to="/contact" className="transition-colors hover:text-white">
-              Contact
-            </Link>
+
+          <div className="flex flex-col items-center justify-between gap-4 py-8 text-xs text-white/40 sm:flex-row">
+            <span>&copy; {new Date().getFullYear()} CeroInfi. All rights reserved.</span>
+            <span>Learn &infin; Grow &infin; Repeat</span>
           </div>
         </div>
       </footer>

@@ -1,5 +1,4 @@
 import { useState, type FormEvent } from 'react'
-import logoWordmarkMono from '../assets/logos/logo-wordmark-mono.png'
 
 const CONTACT_EMAIL = 'ceroinfi@gmail.com'
 
@@ -20,39 +19,34 @@ function Contact() {
 
   return (
     <div className="text-black">
-      <section className="mx-auto max-w-3xl px-6 pt-24 pb-16 text-center sm:px-8 lg:px-12">
-        <p className="mb-5 text-sm font-medium uppercase tracking-[0.35em] text-subtle">
-          Getting Started
-        </p>
-        <h1 className="text-4xl font-black leading-[1.05] tracking-[-0.03em] sm:text-6xl">
-          Start with a diagnostic conversation.
-        </h1>
-        <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-body">
-          Every engagement starts with a short, no-obligation conversation to understand your
-          current challenges and priorities. From there, we recommend a starting point: one
-          workshop, one program, or a phased roadmap across the year.
-        </p>
+      {/* ── Header — dark ── */}
+      <section className="bg-ink px-6 pb-[clamp(4rem,8vw,6rem)] pt-28 sm:px-8 lg:px-10">
+        <div className="mx-auto max-w-4xl text-center">
+          <h1 className="text-[clamp(2.5rem,5.5vw,4.5rem)] font-black leading-[1.05] tracking-[-0.03em] text-white text-balance">
+            Start with a diagnostic conversation.
+          </h1>
+          <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-white/60 sm:text-xl sm:leading-9">
+            Every engagement starts with a short, no-obligation conversation to understand your
+            current challenges and priorities. From there, we recommend a starting point: one
+            workshop, one program, or a phased roadmap across the year.
+          </p>
+        </div>
       </section>
 
-      <section className="relative overflow-hidden px-6 pb-28 sm:px-8 lg:px-12">
-        <img
-          src={logoWordmarkMono}
-          alt=""
-          aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-1/2 w-[140%] max-w-4xl -translate-x-1/2 -translate-y-1/2 opacity-[0.05] sm:w-[85%]"
-        />
+      {/* ── Form — light ── */}
+      <section className="px-6 py-[clamp(4rem,10vw,7rem)] sm:px-8 lg:px-10">
         <form
           onSubmit={handleSubmit}
-          className="relative mx-auto max-w-2xl rounded-[1.5rem] border border-black/12 bg-surface p-8 shadow-[0_10px_40px_rgba(37,42,52,0.08)] sm:p-10"
+          className="mx-auto max-w-2xl rounded-2xl border border-black/8 bg-surface p-8 sm:p-12"
         >
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <Field label="Your name">
               <input
                 required
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black transition-colors placeholder:text-[#6B7280] focus:border-[#006B84]"
+                className="w-full rounded-lg border border-black/12 bg-white px-4 py-3 text-sm text-black transition-colors placeholder:text-subtle/60 focus:border-accent-safe"
                 placeholder="Jane Doe"
               />
             </Field>
@@ -62,33 +56,33 @@ function Contact() {
                 type="text"
                 value={company}
                 onChange={(e) => setCompany(e.target.value)}
-                className="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black transition-colors placeholder:text-[#6B7280] focus:border-[#006B84]"
+                className="w-full rounded-lg border border-black/12 bg-white px-4 py-3 text-sm text-black transition-colors placeholder:text-subtle/60 focus:border-accent-safe"
                 placeholder="Acme Inc."
               />
             </Field>
           </div>
 
-          <div className="mt-5">
+          <div className="mt-6">
             <Field label="Work email">
               <input
                 required
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black transition-colors placeholder:text-[#6B7280] focus:border-[#006B84]"
+                className="w-full rounded-lg border border-black/12 bg-white px-4 py-3 text-sm text-black transition-colors placeholder:text-subtle/60 focus:border-accent-safe"
                 placeholder="jane@acme.com"
               />
             </Field>
           </div>
 
-          <div className="mt-5">
+          <div className="mt-6">
             <Field label="What are you looking to solve?">
               <textarea
                 required
                 rows={4}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                className="w-full resize-none rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black transition-colors placeholder:text-[#6B7280] focus:border-[#006B84]"
+                className="w-full resize-none rounded-lg border border-black/12 bg-white px-4 py-3 text-sm text-black transition-colors placeholder:text-subtle/60 focus:border-accent-safe"
                 placeholder="e.g. our first-time managers are struggling, or our 90-day attrition is climbing..."
               />
             </Field>
@@ -96,7 +90,7 @@ function Contact() {
 
           <button
             type="submit"
-            className="mt-7 w-full rounded-full bg-ink px-7 py-3 text-sm font-semibold text-white transition-transform hover:scale-[1.02]"
+            className="mt-8 w-full rounded-full bg-ink px-8 py-3.5 text-sm font-semibold text-white transition-transform hover:scale-[1.02]"
           >
             Send &rarr;
           </button>

@@ -11,39 +11,47 @@ function InsightArticle() {
 
   return (
     <div className="text-black">
-      <div className="mx-auto max-w-3xl px-6 pt-16 pb-28 sm:px-8">
-        <Link
-          to="/insights"
-          className="mb-10 inline-flex items-center gap-2 rounded-full border border-black/15 px-4 py-2 text-sm font-semibold text-black/80 transition-colors hover:border-black/40 hover:text-black"
-        >
-          &larr; All insights
-        </Link>
+      {/* ── Header — dark ── */}
+      <section className="bg-ink px-6 pb-[clamp(3rem,6vw,5rem)] pt-28 sm:px-8 lg:px-10">
+        <div className="mx-auto max-w-3xl">
+          <Link
+            to="/insights"
+            className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white/70 transition-colors hover:border-white/30 hover:text-white"
+          >
+            &larr; All insights
+          </Link>
 
-        <span
-          className="text-xs font-bold uppercase tracking-[0.16em]"
-          style={{ color: post.accent }}
-        >
-          {post.category}
-        </span>
-        <h1 className="mt-4 text-3xl font-black leading-[1.1] tracking-[-0.02em] sm:text-5xl">
-          {post.title}
-        </h1>
-        <p className="mt-3 text-sm text-subtle">{post.readtime} &middot; Ceroinfi Insights</p>
-
-        <div
-          className="article-content mt-10"
-          style={{ '--acc': post.accent } as React.CSSProperties}
-          dangerouslySetInnerHTML={{ __html: post.html }}
-        />
-
-        <div className="mt-16 flex items-center gap-3 border-t border-black/10 pt-8 text-xs uppercase tracking-[0.2em] text-subtle">
-          <span>
-            <span className="text-accent-safe">0</span> &rarr;{' '}
-            <span className="text-accent-safe">&infin;</span>
+          <span
+            className="block text-xs font-bold uppercase tracking-[0.16em]"
+            style={{ color: '#00AFD7' }}
+          >
+            {post.category}
           </span>
-          Ceroinfi &middot; From zero to infinite.
+          <h1 className="mt-4 text-[clamp(1.75rem,4vw,3rem)] font-black leading-[1.1] tracking-[-0.02em] text-white text-balance">
+            {post.title}
+          </h1>
+          <p className="mt-4 text-sm text-white/45">{post.readtime} &middot; Ceroinfi Insights</p>
         </div>
-      </div>
+      </section>
+
+      {/* ── Article body — light ── */}
+      <section className="px-6 py-[clamp(3rem,8vw,5rem)] sm:px-8 lg:px-10">
+        <div className="mx-auto max-w-3xl">
+          <div
+            className="article-content"
+            style={{ '--acc': post.accent } as React.CSSProperties}
+            dangerouslySetInnerHTML={{ __html: post.html }}
+          />
+
+          <div className="mt-16 flex items-center gap-3 border-t border-black/10 pt-8 text-xs uppercase tracking-[0.2em] text-subtle">
+            <span>
+              <span className="text-accent-safe">0</span> &rarr;{' '}
+              <span className="text-accent-safe">&infin;</span>
+            </span>
+            Ceroinfi &middot; Learn &infin; Grow &infin; Repeat
+          </div>
+        </div>
+      </section>
     </div>
   )
 }

@@ -10,20 +10,16 @@
   raw accent cyan doesn't meet body-text contrast on a light canvas.
 */
 @theme {
-  --color-black: #252A34;        /* ink — headings / full-strength text */
-  --color-white: #F7F9FB;        /* canvas — page background */
-  --color-surface: #EAF5F8;      /* light cyan-tinted card / panel fill */
-  --color-accent: #00AFD7;       /* brand cyan — decorative fills only */
-  --color-accent-safe: #006B84;  /* text-safe cyan — legible text/links (AA on canvas + surface) */
-  --color-ink: #0B2B34;          /* deep brand teal — dark chrome (nav, footer, dark buttons).
-                                    Reads as the dark end of the cyan brand, not the blue-violet
-                                    that #252A34 becomes next to the cyan canvas. */
+  --color-black: #252A34;
+  --color-white: #F7F9FB;
+  --color-surface: #EAF5F8;
+  --color-accent: #00AFD7;
+  --color-accent-safe: #006B84;
+  --color-ink: #0B2B34;
+  --color-body: #3E4652;
+  --color-subtle: #414B58;
 
-  /* Solid muted text tokens — replace opacity-based greys, which failed WCAG AA
-     on the light canvas. Both clear 4.5:1 over canvas, the card surface, and the
-     animated background tint. Hierarchy comes from size/weight, not lightness. */
-  --color-body: #3E4652;         /* body copy */
-  --color-subtle: #414B58;       /* labels, meta, secondary (darkened for the deeper cyan canvas) */
+
 }
 
 :root {
@@ -169,17 +165,15 @@ select:focus-visible {
   letter-spacing: -0.01em;
   font-weight: 700;
   margin: 2.6rem 0 0.75rem;
-  padding-left: 1rem;
   position: relative;
   color: #252A34;
 }
-.article-content h2::before {
+.article-content h2::after {
   content: '';
-  position: absolute;
-  left: 0;
-  top: 0.375rem;
-  bottom: 0.375rem;
-  width: 4px;
+  display: block;
+  margin-top: 0.375rem;
+  width: 2rem;
+  height: 3px;
   border-radius: 3px;
   background: var(--acc, #00AFD7);
 }
@@ -188,8 +182,9 @@ select:focus-visible {
 }
 .article-content blockquote {
   margin: 1.6rem 0;
-  padding: 0.25rem 0 0.25rem 1.375rem;
-  border-left: 3px solid var(--acc, #00AFD7);
+  padding: 1rem 1.5rem;
+  background: rgba(0, 175, 215, 0.07);
+  border-radius: 0.625rem;
   font-size: 1.3125rem;
   line-height: 1.45;
   color: #252A34;

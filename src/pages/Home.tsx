@@ -9,7 +9,6 @@ import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 
 const aboutLines = [
-  'From zero to infinite.',
   'Every learner starts somewhere: a single skill, a first team, a new title. Our job is to make sure the climb from that starting point never ends.',
   'Continuous, human development that builds on itself, diagnosed, designed, delivered, and measured at every stage of the employee lifecycle.',
 ]
@@ -61,14 +60,12 @@ function AboutLine({
   reducedMotion: boolean
 }) {
   const lineProgress = useTransform(progress, [start, end], [0, 1])
-  // Reveal from a legible muted tone to ink on the light band, sharpening
-  // already-readable text rather than gating legibility on scroll.
   const color = useTransform(lineProgress, [0, 1], ['#6B7280', '#252A34'])
 
   return (
     <motion.p
       style={reducedMotion ? { color: '#252A34' } : { color }}
-      className="text-2xl font-semibold leading-snug tracking-[-0.02em] sm:text-3xl"
+      className="text-2xl font-semibold leading-snug tracking-[-0.02em] sm:text-3xl lg:text-4xl"
     >
       {line}
     </motion.p>
@@ -86,7 +83,6 @@ function Home() {
     offset: ['start start', 'end start'],
   })
 
-  // Headline recedes as the hero scrolls away
   const heroScale = useTransform(heroProgress, [0, 1], [1, 0.9])
   const heroOpacity = useTransform(heroProgress, [0, 0.7, 1], [1, 0.35, 0])
   const heroTextY = useTransform(heroProgress, [0, 1], [0, 120])
@@ -96,8 +92,6 @@ function Home() {
     offset: ['start end', 'end start'],
   })
 
-  // Right-side brand watermark: parallax drift + a 0 -> ∞ transition on scroll.
-  // "0" holds while entering, then crossfades/scales into "∞" as you scroll past.
   const zeroOpacity = useTransform(aboutProgress, [0.08, 0.52], [0.16, 0])
   const zeroScale = useTransform(aboutProgress, [0.08, 0.52], [1, 0.6])
   const infOpacity = useTransform(aboutProgress, [0.34, 0.74], [0, 0.16])
@@ -112,9 +106,10 @@ function Home() {
 
   return (
     <div className="overflow-x-clip text-black">
+      {/* ── Hero ── */}
       <section
         ref={heroRef}
-        className="relative flex min-h-screen items-center overflow-hidden px-6 sm:px-8 lg:px-12"
+        className="relative flex min-h-[100svh] items-center overflow-hidden px-6 sm:px-8 lg:px-10"
       >
         <motion.div
           style={{
@@ -122,31 +117,31 @@ function Home() {
             opacity: heroOpacity,
             y: reducedMotion ? 0 : heroTextY,
           }}
-          className="relative z-10 mx-auto max-w-3xl text-center"
+          className="relative z-10 mx-auto max-w-4xl text-center"
         >
-          <p className="mb-5 flex items-center justify-center gap-3 text-sm font-medium uppercase tracking-[0.35em] text-body">
+          <p className="mb-6 flex items-center justify-center gap-3 text-sm font-medium uppercase tracking-[0.35em] text-body">
             <span className="text-accent-safe">0</span> &rarr;{' '}
             <span className="text-accent-safe">&infin;</span>
             <span className="text-subtle">Learn &middot; Grow &middot; Repeat</span>
           </p>
-          <h1 className="text-5xl font-black leading-[0.95] tracking-[-0.04em] text-black sm:text-6xl md:text-7xl">
+          <h1 className="text-[clamp(2.75rem,6vw,5.5rem)] font-black leading-[0.95] tracking-[-0.03em] text-black text-balance">
             People solutions across the employee lifecycle.
           </h1>
-          <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-body">
+          <p className="mx-auto mt-8 max-w-2xl text-lg leading-8 text-body sm:text-xl sm:leading-9">
             Talent Acquisition &middot; Onboarding &middot; Manager Development &middot;
             Leadership &middot; Soft Skills. Diagnosed, designed, delivered, and measured with
             you, built around your roles rather than pulled off a shelf.
           </p>
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
+          <div className="mt-12 flex flex-wrap justify-center gap-4">
             <Link
               to="/contact"
-              className="rounded-full bg-ink px-7 py-3 text-sm font-semibold text-white transition-transform hover:scale-105"
+              className="rounded-full bg-ink px-8 py-3.5 text-sm font-semibold text-white transition-transform hover:scale-105"
             >
               Start the conversation
             </Link>
             <Link
               to="/method"
-              className="rounded-full border border-black/20 px-7 py-3 text-sm font-semibold text-black transition-colors hover:border-black/50"
+              className="rounded-full border border-black/20 px-8 py-3.5 text-sm font-semibold text-black transition-colors hover:border-black/50"
             >
               See the 4D Method
             </Link>
@@ -154,11 +149,11 @@ function Home() {
         </motion.div>
       </section>
 
+      {/* ── About / From zero to infinite ── */}
       <section
         ref={aboutRef}
-        className="relative overflow-hidden bg-surface/50 px-6 py-32 sm:px-8 lg:px-12"
+        className="relative overflow-hidden bg-surface/50 px-6 py-[clamp(5rem,12vw,9rem)] sm:px-8 lg:px-10"
       >
-        {/* Brand watermark on the right: parallax drift + a 0 -> ∞ transition on scroll. */}
         {reducedMotion ? (
           <span
             aria-hidden="true"
@@ -190,7 +185,7 @@ function Home() {
         )}
 
         <div className="relative mx-auto max-w-4xl">
-          <div className="space-y-7">
+          <div className="space-y-8">
             {aboutLines.map((line, index) => {
               const start = index / aboutLines.length
               const end = (index + 1) / aboutLines.length
@@ -209,59 +204,63 @@ function Home() {
         </div>
       </section>
 
-      <section ref={whyRef} className="relative overflow-hidden px-6 pb-28 pt-8 sm:px-8 lg:px-12">
+      {/* ── Why us — dark section ── */}
+      <section ref={whyRef} className="relative overflow-hidden bg-ink px-6 py-[clamp(5rem,12vw,9rem)] sm:px-8 lg:px-10">
         <motion.div
           aria-hidden="true"
           className="pointer-events-none absolute left-1/2 top-0 h-[600px] w-[900px] -translate-x-1/2"
           style={{
             y: reducedMotion ? 0 : whyGlowY,
             background:
-              'radial-gradient(closest-side, rgba(0,175,215,.10), transparent 70%)',
+              'radial-gradient(closest-side, rgba(0,175,215,.12), transparent 70%)',
           }}
         />
 
-        <div className="relative mx-auto max-w-6xl">
-          <div className="mb-12 max-w-2xl">
-            <h2 className="text-4xl font-semibold leading-tight tracking-[-0.03em] text-black sm:text-5xl">
+        <div className="relative mx-auto max-w-7xl">
+          <div className="mb-16 max-w-3xl">
+            <h2 className="text-[clamp(2rem,4.5vw,3.5rem)] font-semibold leading-[1.1] tracking-[-0.02em] text-white text-balance">
               There is no shortage of training vendors. Here is what's different.
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {usps.map((item, index) => {
-              const lead = index === 0
-              return (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, y: 40, scale: 0.96 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.5, delay: (index % 3) * 0.1, ease: 'easeOut' }}
-                  className={`rounded-[1.25rem] border border-black/12 bg-surface p-7 shadow-[0_8px_28px_rgba(37,42,52,0.06)] ${
-                    lead ? 'sm:col-span-2 lg:row-span-2 lg:flex lg:flex-col lg:justify-end' : ''
-                  }`}
-                >
-                  <div
-                    className="mb-4 h-1.5 w-10 rounded-full bg-accent"
-                  />
-                  <h3
-                    className={`font-semibold text-black ${
-                      lead ? 'text-2xl tracking-[-0.01em]' : 'text-lg'
-                    }`}
-                  >
-                    {item.title}
-                  </h3>
-                  <p
-                    className={`mt-3 leading-6 text-body ${
-                      lead ? 'text-base leading-7' : 'text-sm'
-                    }`}
-                  >
-                    {item.description}
-                  </p>
-                </motion.div>
-              )
-            })}
+          <div className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl bg-white/10 sm:grid-cols-2 lg:grid-cols-3">
+            {usps.map((item, index) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.5, delay: (index % 3) * 0.08, ease: 'easeOut' }}
+                className="bg-ink p-8 lg:p-10"
+              >
+                <h3 className="text-lg font-semibold text-white">
+                  {item.title}
+                </h3>
+                <p className="mt-3 text-sm leading-7 text-white/60">
+                  {item.description}
+                </p>
+              </motion.div>
+            ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── CTA band ── */}
+      <section className="px-6 py-[clamp(4rem,10vw,7rem)] sm:px-8 lg:px-10">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="text-[clamp(1.75rem,4vw,3rem)] font-semibold tracking-[-0.02em] text-black text-balance">
+            Ready to start the climb?
+          </h2>
+          <p className="mt-4 text-base leading-7 text-body">
+            Let's map your first sprint together. We will find where your people, managers and leaders
+            stand today, and chart the route to what's next.
+          </p>
+          <Link
+            to="/contact"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-ink px-8 py-3.5 text-sm font-semibold text-white transition-transform hover:scale-105"
+          >
+            Begin the climb &rarr;
+          </Link>
         </div>
       </section>
     </div>

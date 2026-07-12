@@ -6,7 +6,7 @@ function NotFound() {
     <div className="flex min-h-[70vh] flex-col items-center justify-center px-6 text-center text-black">
       <img src={logoMark} alt="" aria-hidden="true" className="mb-6 h-12 w-auto opacity-90" />
       <p className="text-sm font-medium uppercase tracking-[0.35em] text-subtle">404</p>
-      <h1 className="mt-4 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+      <h1 className="mt-4 text-[clamp(1.75rem,4vw,3rem)] font-black tracking-[-0.02em] text-balance">
         This route hasn't started its climb yet.
       </h1>
       <p className="mt-4 max-w-md text-base leading-7 text-body">
@@ -14,7 +14,7 @@ function NotFound() {
       </p>
       <Link
         to="/"
-        className="mt-8 inline-flex items-center gap-2 rounded-full bg-ink px-7 py-3 text-sm font-semibold text-white transition-transform hover:scale-105"
+        className="mt-8 inline-flex items-center gap-2 rounded-full bg-ink px-8 py-3.5 text-sm font-semibold text-white transition-transform hover:scale-105"
       >
         Back to home
       </Link>
